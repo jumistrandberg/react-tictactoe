@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Board from "./Board";
-import "../lineStyles.css" 
+import GameOver from "./GameOver";
+import GameState from "./GameState";
+import "../lineStyles.css";
 
 const playerX = "X";
 const playerO = "O";
@@ -22,25 +24,30 @@ const winningCombos = [
 ];
 
 const checkWinner = (tiles, setLineClass) => {
-  for(const {combo, lineClass} of winningCombos) {
+  for (const { combo, lineClass } of winningCombos) {
     const tileValue1 = tiles[combo[0]];
     const tileValue2 = tiles[combo[1]];
     const tileValue3 = tiles[combo[2]];
 
-    if(tileValue1 !== null && tileValue1 === tileValue2 && tileValue1 === tileValue3){
-      setLineClass(lineClass); 
+    if (
+      tileValue1 !== null &&
+      tileValue1 === tileValue2 &&
+      tileValue1 === tileValue3
+    ) {
+      setLineClass(lineClass);
     }
   }
-}
+};
 
 const Game: React.FC = () => {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(playerX);
   const [lineClass, setLineClass] = useState();
+  const [gameState, setGameState] = useState(GameState.inProg);
 
-useEffect(() => {
-  checkWinner(tiles, setLineClass);
-}, [tiles])
+  useEffect(() => {
+    checkWinner(tiles, setLineClass);
+  }, [tiles]);
 
   const handleTileClick = (index) => {
     if (tiles[index] !== null) {
@@ -61,7 +68,12 @@ useEffect(() => {
       <h1 className="border-2 w-full text-center p-3 mb-5 text-5xl text-textColor">
         Tic-Tac-Toe
       </h1>
-      <Board tiles={tiles} onTileClick={handleTileClick} lineClass={lineClass}/>
+      <Board
+        tiles={tiles}
+        onTileClick={handleTileClick}
+        lineClass={lineClass}
+      />
+      <GameOver gameState={gameState} />
     </div>
   );
 };

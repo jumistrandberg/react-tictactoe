@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     extend: {
+
       colors: {
         "mainBgColor": "#49243E",
         "textColor": "#DBAFA0",
