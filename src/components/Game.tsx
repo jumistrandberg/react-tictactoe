@@ -40,7 +40,13 @@ const checkWinner = (tiles, setLineClass, setGameState) => {
       } else {
         setGameState(GameState.playerOWins)
       }
+      return;
     }
+  }
+
+  const allTilesFilled = tiles.every((tile) => tile !== null );
+  if (allTilesFilled) {
+    setGameState(GameState.draw);
   }
 };
 
@@ -55,6 +61,10 @@ const Game: React.FC = () => {
   }, [tiles]);
 
   const handleTileClick = (index) => {
+    if(gameState !== GameState.inProgress) {
+      return;
+    }
+    
     if (tiles[index] !== null) {
       return;
     }
