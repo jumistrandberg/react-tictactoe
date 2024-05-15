@@ -43,7 +43,7 @@ const Game: React.FC = () => {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(playerX);
   const [lineClass, setLineClass] = useState();
-  const [gameState, setGameState] = useState(GameState.inProg);
+  const [gameState, setGameState] = useState(GameState.draw);
 
   useEffect(() => {
     checkWinner(tiles, setLineClass);
@@ -64,8 +64,8 @@ const Game: React.FC = () => {
   };
 
   return (
-    <div className="h-[100vh] w-full border-2 flex flex-col items-center">
-      <h1 className="border-2 w-full text-center p-3 mb-5 text-5xl text-textColor">
+    <div className="h-[100vh] w-full flex flex-col items-center">
+      <h1 className="w-full text-center p-3 mb-5 text-5xl text-textColor uppercase tracking-wider">
         Tic-Tac-Toe
       </h1>
       <Board
