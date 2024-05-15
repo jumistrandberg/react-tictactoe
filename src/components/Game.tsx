@@ -23,7 +23,7 @@ const winningCombos = [
   { combo: [2, 4, 6], lineClass: "line-diagonal-2" },
 ];
 
-const checkWinner = (tiles, setLineClass) => {
+const checkWinner = (tiles, setLineClass, setGameState) => {
   for (const { combo, lineClass } of winningCombos) {
     const tileValue1 = tiles[combo[0]];
     const tileValue2 = tiles[combo[1]];
@@ -35,6 +35,11 @@ const checkWinner = (tiles, setLineClass) => {
       tileValue1 === tileValue3
     ) {
       setLineClass(lineClass);
+      if(tileValue1 === playerX) {
+        setGameState(GameState.playerXWins)
+      } else {
+        setGameState(GameState.playerOWins)
+      }
     }
   }
 };
@@ -43,10 +48,10 @@ const Game: React.FC = () => {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(playerX);
   const [lineClass, setLineClass] = useState();
-  const [gameState, setGameState] = useState(GameState.draw);
+  const [gameState, setGameState] = useState(GameState.inProgress);
 
   useEffect(() => {
-    checkWinner(tiles, setLineClass);
+    checkWinner(tiles, setLineClass, setGameState);
   }, [tiles]);
 
   const handleTileClick = (index) => {
