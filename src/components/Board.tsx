@@ -1,8 +1,11 @@
 import React from 'react'
+import Tile from './Tile'
 
 const Board = () => {
   return (
-    <div>Board</div>
+    <div>
+      <Tile />
+    </div>
   )
 }
 
