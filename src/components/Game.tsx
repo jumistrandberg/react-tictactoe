@@ -7,8 +7,11 @@ import "../lineStyles.css";
 
 const playerX = "X";
 const playerO = "O";
-
-const winningCombos = [
+interface WinningCombo {
+  combo: number[];
+  lineClass: string;
+} 
+const winningCombos: WinningCombo[] = [
   //Rows
   { combo: [0, 1, 2], lineClass: "line-row-1" },
   { combo: [3, 4, 5], lineClass: "line-row-2" },
@@ -24,7 +27,7 @@ const winningCombos = [
   { combo: [2, 4, 6], lineClass: "line-diagonal-2" },
 ];
 
-const checkWinner = (tiles, setLineClass, setGameState) => {
+const checkWinner = (tiles: (string | null)[], setLineClass, setGameState) => {
   for (const { combo, lineClass } of winningCombos) {
     const tileValue1 = tiles[combo[0]];
     const tileValue2 = tiles[combo[1]];
@@ -52,9 +55,9 @@ const checkWinner = (tiles, setLineClass, setGameState) => {
 };
 
 const Game: React.FC = () => {
-  const [tiles, setTiles] = useState(Array(9).fill(null));
-  const [playerTurn, setPlayerTurn] = useState(playerX);
-  const [lineClass, setLineClass] = useState();
+  const [tiles, setTiles] = useState<(string | null)[]>(Array(9).fill(null));
+  const [playerTurn, setPlayerTurn] = useState<string>(playerX);
+  const [lineClass, setLineClass] = useState<string | undefined>(undefined);
   const [gameState, setGameState] = useState(GameState.inProgress);
 
   useEffect(() => {
@@ -65,9 +68,10 @@ const Game: React.FC = () => {
     setGameState(GameState.inProgress);
     setTiles(Array(9).fill(null));
     setPlayerTurn(playerX); 
+    setLineClass(undefined)
   };
 
-  const handleTileClick = (index) => {
+  const handleTileClick = (index: number) => {
     if (gameState !== GameState.inProgress) {
       return;
     }
