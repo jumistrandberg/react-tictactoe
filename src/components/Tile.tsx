@@ -1,6 +1,7 @@
 import React from "react";
 
 interface TileProps {
+  value: string | null;
   row: number;
   col: number;
 }
