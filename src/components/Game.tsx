@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Board from "./Board";
 import GameOver from "./GameOver";
 import GameState from "./GameState";
+import Reset from "./Reset";
 import "../lineStyles.css";
 
 const playerX = "X";
@@ -35,16 +36,16 @@ const checkWinner = (tiles, setLineClass, setGameState) => {
       tileValue1 === tileValue3
     ) {
       setLineClass(lineClass);
-      if(tileValue1 === playerX) {
-        setGameState(GameState.playerXWins)
+      if (tileValue1 === playerX) {
+        setGameState(GameState.playerXWins);
       } else {
-        setGameState(GameState.playerOWins)
+        setGameState(GameState.playerOWins);
       }
       return;
     }
   }
 
-  const allTilesFilled = tiles.every((tile) => tile !== null );
+  const allTilesFilled = tiles.every((tile) => tile !== null);
   if (allTilesFilled) {
     setGameState(GameState.draw);
   }
@@ -60,11 +61,17 @@ const Game: React.FC = () => {
     checkWinner(tiles, setLineClass, setGameState);
   }, [tiles]);
 
+  const handleReset = () => {
+    setGameState(GameState.inProgress);
+    setTiles(Array(9).fill(null));
+    setPlayerTurn(playerX); 
+  };
+
   const handleTileClick = (index) => {
-    if(gameState !== GameState.inProgress) {
+    if (gameState !== GameState.inProgress) {
       return;
     }
-    
+
     if (tiles[index] !== null) {
       return;
     }
@@ -89,6 +96,7 @@ const Game: React.FC = () => {
         lineClass={lineClass}
       />
       <GameOver gameState={gameState} />
+      <Reset gameState={gameState} onReset={handleReset} />
     </div>
   );
 };
