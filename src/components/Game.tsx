@@ -9,6 +9,9 @@ const Game: React.FC = () => {
   const [playerTurn, setPlayerTurn] = useState(playerX);
 
   const handleTileClick = (index) => {
+    if(tiles[index] !== null) {
+      return;
+    }
     const newTiles = [...tiles]; 
     newTiles[index] = playerTurn;
     setTiles(newTiles);
