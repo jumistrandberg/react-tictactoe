@@ -7,7 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        "mainBgColor": "#344C64"
+        "mainBgColor": "#49243E",
+        "textColor": "#DBAFA0",
+        "lineColor": "#030637",
+        "contrastColor": "#DBAFA0"
         
       }
     },

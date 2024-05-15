@@ -1,4 +1,5 @@
 import React from "react";
+ 
 
 interface TileProps {
   value: string | null;
@@ -16,7 +17,7 @@ const Tile: React.FC<TileProps> = ({ row, col, value, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={`tile min-w-[100px] min-h-[100px] text-3xl border-b-2 border-r-2 ${borderStyling} justify-center items-center flex `}
+      className={`tile min-w-[100px] min-h-[100px] text-3xl border-b-2 border-r-2 border-textColor text-contrastColor ${borderStyling} justify-center items-center flex `}
     >
       {value}
     </div>
