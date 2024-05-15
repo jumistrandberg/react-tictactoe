@@ -3,8 +3,17 @@ import Tile from './Tile'
 
 const Board = () => {
   return (
-    <div>
+    <div className='board grid grid-cols-3 grid-rows-3 relative cursor-pointer'>
       <Tile />
+      <Tile />
+      <Tile />
+      <Tile />
+      <Tile />
+      <Tile />
+      <Tile />
+      <Tile />
+      <Tile />
+
     </div>
   )
 }
